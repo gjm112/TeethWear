@@ -84,7 +84,7 @@ efourier_i <- function(ef, nb.h, nb.pts = 120) {
 #Links DSCN numbers to Taxa
 ################################################
 require(gdata)
-keys<-list.files("/Users/gregorymatthews/Dropbox/brophyTeeth/Extant teeth Images and Key/Key to bovid teeth/",full=TRUE)
+keys<-list.files("./TeethWear/Extant teeth Images and Key/Key to bovid teeth/",full=TRUE)
 keys<-keys[grep(".csv",keys)]
 keysList<-list()
 for (k in keys){
@@ -122,14 +122,14 @@ keyFile$M3 <- gsub("L","",keyFile$M3)
 ################################################
 
 imgsList<-list()
-dscn<-list.files("/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/resultsClean")
+dscn<-list.files("./TeethWear/resultsClean")
 
 for (d in dscn){print(d)
   
-  files<-list.files(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/resultsClean/",d))
+  files<-list.files(paste0("./TeethWear/resultsClean/",d))
   files <- files[grep("jpg",files)]
   
-  imgsList[[d]]<-import_jpg(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/resultsClean/",d,"/",files,sep=""))
+  imgsList[[d]]<-import_jpg(paste0("./TeethWear/resultsClean/",d,"/",files,sep=""))
   
   #Manual removal of this MTurk image
   imgsList[[d]][which(names(imgsList[[d]])=="3A1COHJ8NJU7FB7Z1T98O6918IG8H5")]<-NULL
@@ -236,11 +236,11 @@ names(imgsListMean) <- toupper(gsub("l","",names(imgsListMean)))
 
 
 #Checking the teeth
-for (i in names(imgsListMean)){
-  png(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/WearTestCheck/",i,".png"))
-  plot(imgsListMean[[toupper(i)]], main = i, asp = 1)
-  dev.off()
-}
+# for (i in names(imgsListMean)){
+#   png(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/WearTestCheck/",i,".png"))
+#   plot(imgsListMean[[toupper(i)]], main = i, asp = 1)
+#   dev.off()
+# }
 
 
 
@@ -256,25 +256,25 @@ for (i in names(imgsListMean)){
 ptsTrainList<-list()
 refFile<-data.frame()
 
-setwd("/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/")
+setwd("./TeethWear/Raw data/Point files/")
 
 tribeVec <- list.files()
 for (t in tribeVec){print(t)
-  speciesVec<-list.files(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/",t))
+  speciesVec<-list.files(paste0("./TeethWear/Raw data/Point files/",t))
   for (s in speciesVec){print(s)
-    teethVec<-list.files(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/",t,"/",s))
+    teethVec<-list.files(paste0("./TeethWear/Raw data/Point files/",t,"/",s))
     for (tooth in teethVec){
-      filesVec<-list.files(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/",t,"/",s,"/",tooth))
+      filesVec<-list.files(paste0("./TeethWear/Raw data/Point files/",t,"/",s,"/",tooth))
       for (f in filesVec){
-        file<-(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/",t,"/",s,"/",tooth,"/",f))
+        file<-(paste0("./TeethWear/Raw data/Point files/",t,"/",s,"/",tooth,"/",f))
         
-        if (file != "/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/Antilopini/Antidorcas marsupialis/LM2 A marsupialis/DSCN3190"){
+        if (file != "./TeethWear/Raw data/Point files/Antilopini/Antidorcas marsupialis/LM2 A marsupialis/DSCN3190"){
           temp<-matrix(unlist(read.table(file))[-c(1:20)],ncol=13,byrow=TRUE)[,-13]
           
           pts<-data.frame(x=c(t(temp[,seq(1,11,2)])),y=c(t(temp[,seq(1,11,2)+1])))
         }
         
-        if (file == "/Users/gregorymatthews/Dropbox/brophyTeeth/Raw data/Point files/Antilopini/Antidorcas marsupialis/LM2 A marsupialis/DSCN3190"){
+        if (file == "./TeethWear/Raw data/Point files/Antilopini/Antidorcas marsupialis/LM2 A marsupialis/DSCN3190"){
           pts<-read.table(file)
           names(pts)<-c("x","y")
         }
@@ -319,7 +319,7 @@ for (s in sp){
 ############################################################################
 fixedImgsList<-list()
 for (tooth in c("LM1","LM2","LM3","UM1","UM2")){print(tooth)
-  dscn<-list.files(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/fixedTeeth/",tooth))
+  dscn<-list.files(paste0("./TeethWear/fixedTeeth/",tooth))
   for (d in dscn){
     id <- gsub(".jpg","",d)
     fixedImgsList[[tooth]][[id]] <- import_jpg(paste0("/Users/gregorymatthews/Dropbox/brophyTeeth/fixedTeeth/",tooth,"/",d,sep=""))[[1]]  
@@ -483,11 +483,11 @@ for (tooth in c("LM1","LM2","LM3","UM1","UM3")){print(tooth)
 ######################################################
 #Pull in ID's on the chipps vs worn teeth.  
 ######################################################
-fils<-toupper(list.files("/Users/gregorymatthews/Dropbox/Wear Test/chipped/"))
+fils<-toupper(list.files("./TeethWear/Wear Test/chipped/"))
 fils<-fils[grep("JPG",fils)]
 filsChipped<-substring(fils,1,nchar(fils)-4)
 
-fils<-c(toupper(list.files("/Users/gregorymatthews/Dropbox/Wear Test/notchipped/")),list.files("/Users/gregorymatthews/Dropbox/Wear Test/notchipped/Incorrect/"))
+fils<-c(toupper(list.files("./TeethWear/Wear Test/notchipped/")),list.files("/Users/gregorymatthews/Dropbox/Wear Test/notchipped/Incorrect/"))
 fils<-fils[grep("JPG",fils)]
 filsNotChipped<-substring(fils,1,nchar(fils)-4)
 
