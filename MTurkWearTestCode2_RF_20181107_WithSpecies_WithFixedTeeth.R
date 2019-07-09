@@ -544,12 +544,13 @@ preds$correct<-(preds$predictedTribe==preds$Tribe)+0
 preds$predictedSpecies<-c("gnou","buselaphus","dorcas","oryx","niger","taurinus","campestris","gazella","capreolus","equinus" ,"arundinum","cafer")[apply(preds[,c("gnou","buselaphus","dorcas","oryx","niger","taurinus","campestris","gazella","capreolus","equinus" ,"arundinum","cafer")],1,which.max)]
 preds$correctSpecies<-(preds$predictedSpecies==preds$Species)+0
 
-# 
- write.csv(preds,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/classProbs20181109.csv")
+
+#Output files
+# write.csv(preds,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/classProbs20181109.csv")
 # write.csv(preds,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/results20180604_RandomForest_withSpecies.csv")
- save(preds,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/preds_results20181109_RandomForest_withSpecies.RData")
- save(mod,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/mod_results20181109_RandomForest_withSpecies.RData")
-save.image(file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/mod_results20181109_RandomForest_withSpecies_ALL.RData")
+# save(preds,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/preds_results20181109_RandomForest_withSpecies.RData")
+# save(mod,file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/mod_results20181109_RandomForest_withSpecies.RData")
+# save.image(file="/Users/gregorymatthews/Dropbox/brophyTeeth/MTurk-WearTest/mod_results20181109_RandomForest_withSpecies_ALL.RData")
 
 
 
